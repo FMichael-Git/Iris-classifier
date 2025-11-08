@@ -43,3 +43,52 @@ y_pred2 = model2.predict(X_test)
 print("k-NN accuracy:", accuracy_score(y_test, y_pred2))
 model = DecisionTreeClassifier(max_depth=3, random_state=42)
 model.fit(X_train, y_train)
+
+
+import os
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+# Example: true and predicted labels
+y_true = [0, 1, 2, 2, 0, 1]
+y_pred = [0, 0, 2, 2, 0, 2]
+
+
+
+# 1. Create the confusion matrix
+cm = confusion_matrix(y_true, y_pred, labels=[0, 1, 2])
+
+# 2. Display it
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Setosa", "Versicolor", "Virginica"])
+disp.plot(cmap="Blues")  # You can change 'Blues' to another colormap like 'viridis' or 'coolwarm'
+
+# 3. Create the outputs folder (if it doesn’t exist)
+os.makedirs("outputs", exist_ok=True)
+
+# 4. Save the confusion matrix as a PNG file
+plt.savefig("outputs/confusion_matrix.png", bbox_inches="tight")
+
+
+import os
+import joblib
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+# Load dataset
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Train a simple model
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# Ensure the outputs/ folder exists
+os.makedirs("outputs", exist_ok=True)
+
+# Save the trained model to outputs/ folder
+joblib.dump(model, "outputs/iris_model.joblib")
+
+
+
+
