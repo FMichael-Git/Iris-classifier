@@ -49,9 +49,9 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-# Example: true and predicted labels
-y_true = [0, 1, 2, 2, 0, 1]
-y_pred = [0, 0, 2, 2, 0, 2]
+# true and predicted labels
+y_true = y_test
+y_pred = model.predict(X_test)
 
 
 
@@ -60,9 +60,9 @@ cm = confusion_matrix(y_true, y_pred, labels=[0, 1, 2])
 
 # 2. Display it
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Setosa", "Versicolor", "Virginica"])
-disp.plot(cmap="Blues")  # You can change 'Blues' to another colormap like 'viridis' or 'coolwarm'
+disp.plot(cmap="Blues") 
 
-# 3. Create the outputs folder (if it doesn’t exist)
+# 3. Create the outputs folder
 os.makedirs("outputs", exist_ok=True)
 
 # 4. Save the confusion matrix as a PNG file
